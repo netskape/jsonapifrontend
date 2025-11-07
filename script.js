@@ -1,4 +1,4 @@
-const API_BASE = "https://jsonxmlapi.onrender.com"; // zmień na adres backendu online, jeśli hostujesz
+const API_BASE = "https://jsonxmlapi.onrender.com";
 
 const inputEl = document.getElementById("input");
 let inputCode = document.getElementById("inputCode");
@@ -9,9 +9,11 @@ const toJsonBtn = document.getElementById("toJson");
 const copyBtn = document.getElementById("copy");
 const clearBtn = document.getElementById("clear");
 const downloadBtn = document.getElementById("download");
+const formatBtn = document.getElementById("format");
 
 let autoConvertTimeout = null;
 
+/* 🔹 wykrywanie formatu */
 function detectFormat(text) {
     const trimmed = text.trim();
     if (!trimmed) return null;
@@ -20,25 +22,28 @@ function detectFormat(text) {
     return null;
 }
 
+/* 🔹 pobranie pełnego tekstu z inputa (czysty tekst) */
 function getInputText() {
-    return inputCode.textContent.trim();
+    return inputEl.innerText
+        .replace(/\u200B/g, "")
+        .replace(/\u00A0/g, " ")
+        .replace(/\r?\n[\t ]*\r?\n/g, "\n")
+        .trim();
 }
 
-// 🔹 Funkcja do kolorowania składni
-function setInputHighlight() {
-    const text = getInputText();
-    const format = detectFormat(text);
-    inputCode.className = format === "xml" ? "language-xml" : "language-json";
-    inputCode.textContent = text;
-    Prism.highlightElement(inputCode);
-}
-
-// 🔹 Pretty-print XML
+/* 🔹 Pretty-print XML */
 function formatXml(xml) {
+    xml = xml
+        .replace(/\r?\n|\r/g, "")
+        .replace(/\s+</g, "<")
+        .replace(/>\s+/g, ">")
+        .trim();
+
     const PADDING = "  ";
     const reg = /(>)(<)(\/*)/g;
     let pad = 0;
     xml = xml.replace(reg, "$1\r\n$2$3");
+
     return xml
         .split("\r\n")
         .map((node) => {
@@ -59,28 +64,38 @@ function formatXml(xml) {
         .join("\r\n");
 }
 
-// 🔹 Pretty-print INPUT
+/* 🔹 Pretty-print INPUT (czyszczenie + kolorowanie) */
 function prettyInput() {
-    const text = getInputText();
+    let text = getInputText();
+    if (!text) return;
+
     const format = detectFormat(text);
     if (!format) return;
 
     try {
+        let formatted;
         if (format === "json") {
-            inputCode.textContent = JSON.stringify(JSON.parse(text), null, 2);
+            formatted = JSON.stringify(JSON.parse(text), null, 2);
+            inputCode.className = "language-json";
         } else if (format === "xml") {
-            inputCode.textContent = formatXml(text);
-        }
+            formatted = formatXml(text);
+            inputCode.className = "language-xml";
+        } else return;
+
+        // 🔧 Wyczyszczenie całego inputa, by uniknąć duplikatów w DOM
+        inputEl.innerHTML = "";
+        inputEl.appendChild(inputCode);
+
+        inputCode.textContent = formatted;
         Prism.highlightElement(inputCode);
-    } catch {
-        // jeśli błąd – zostaw surowe dane
+    } catch (e) {
+        console.warn("Formatowanie nieudane:", e);
     }
 }
 
-// 🔹 Pretty-print OUTPUT
+/* 🔹 Pretty-print OUTPUT */
 function showOutput(data, type) {
     let formatted;
-
     if (type === "json") {
         try {
             formatted = JSON.stringify(JSON.parse(data), null, 2);
@@ -98,11 +113,11 @@ function showOutput(data, type) {
     Prism.highlightElement(outputCode);
 }
 
-// 🔹 Konwersja przez API
+/* 🔹 Konwersja przez API */
 async function convert(endpoint) {
     const data = getInputText();
     if (!data) {
-        outputCode.textContent = "⚠️ Wklej dane wejściowe!";
+        outputCode.textContent = "";
         Prism.highlightElement(outputCode);
         return;
     }
@@ -136,17 +151,15 @@ async function convert(endpoint) {
     }
 }
 
-// 🔹 Auto-konwersja
+/* 🔹 Auto-konwersja (bez formatowania inputa) */
 function handleInputChange() {
     const text = getInputText();
     if (!text) {
-        // 🧹 jeśli pole wejściowe puste — czyścimy output
         outputCode.textContent = "";
         Prism.highlightElement(outputCode);
         return;
     }
 
-    setInputHighlight();
     clearTimeout(autoConvertTimeout);
     autoConvertTimeout = setTimeout(() => {
         const format = detectFormat(text);
@@ -156,27 +169,37 @@ function handleInputChange() {
     }, 700);
 }
 
-// ✅ Rejestracja eventów
+/* ✅ Rejestracja eventów */
 function attachInputListeners() {
     inputEl.addEventListener("input", handleInputChange);
 
     inputEl.addEventListener("paste", (e) => {
         e.preventDefault();
-        const text = (e.clipboardData || window.clipboardData).getData("text");
 
-        // 💡 Resetujemy strukturę DOM po wklejeniu
-        inputEl.innerHTML = `<code id="inputCode" class="language-json"></code>`;
-        inputCode = document.getElementById("inputCode");
+        const pastedText = (e.clipboardData || window.clipboardData).getData("text");
+        if (!pastedText) return;
 
-        inputCode.textContent = text;
-        prettyInput(); // sformatuj natychmiast
+        // 📍 Wstaw tekst w miejscu kursora zamiast podmiany całego pola
+        const selection = window.getSelection();
+        if (!selection.rangeCount) return;
+
+        const range = selection.getRangeAt(0);
+        range.deleteContents();
+        range.insertNode(document.createTextNode(pastedText));
+
+        // 🔧 scal fragmenty tekstu po wklejeniu, żeby innerText działał poprawnie
+        inputEl.normalize();
+
+        // 🔹 automatyczna konwersja po wklejeniu
         handleInputChange();
     });
+
 }
 
-// 🔹 Przyciski
+/* 🔹 Przyciski */
 toXmlBtn.addEventListener("click", () => convert("json-to-xml"));
 toJsonBtn.addEventListener("click", () => convert("xml-to-json"));
+formatBtn.addEventListener("click", prettyInput);
 
 copyBtn.addEventListener("click", async () => {
     await navigator.clipboard.writeText(outputCode.textContent);
@@ -200,5 +223,5 @@ downloadBtn.addEventListener("click", () => {
     URL.revokeObjectURL(a.href);
 });
 
-// 🔹 Start
+/* 🔹 Start */
 attachInputListeners();

@@ -1,12 +1,13 @@
+/* 🌙 Główny motyw (ciemny) */
 body {
     background-color: #0d1117 !important;
     color: #e6edf3 !important;
 }
 
-/* Pola tekstowe */
+/* 📝 Pola tekstowe (oryginalne textarea) */
 textarea.form-control {
     font-family: "JetBrains Mono", "Fira Code", monospace;
-    font-size: 0.85rem; /* 🔹 mniejsza czcionka */
+    font-size: 0.85rem;
     background-color: #161b22 !important;
     border: 1px solid #30363d !important;
     color: #e6edf3 !important;
@@ -20,53 +21,64 @@ textarea.form-control:focus {
     border-color: #58a6ff !important;
 }
 
-/* Przyciski */
+/* 🔘 Przyciski */
 .btn {
     border-radius: 8px !important;
     font-size: 0.9rem;
 }
 
-/* Pasek nawigacji */
+/* 🧭 Pasek nawigacji */
 .navbar-brand {
     font-size: 1rem;
 }
 
-/* Drobne poprawki responsywne */
+/* 📱 Drobne poprawki responsywne */
 @media (max-width: 768px) {
     textarea.form-control {
         font-size: 0.8rem;
     }
 }
+
 ::placeholder {
-    color: #ccc !important; /* jaśniejszy szary */
-    /*opacity: 100; !* pełna widoczność *!*/
+    color: #ccc !important;
 }
+
 @media (min-width: 1200px) {
     pre.form-control {
-        min-height: 700px; /* 🔹 Możesz zmienić np. na 100vh, jeśli chcesz pełny ekran */
+        min-height: 700px;
     }
 }
+
+/* 💡 Kolorowanie składni (Prism.js) */
 pre[class*="language-"],
 code[class*="language-"] {
     background: transparent !important;
     color: inherit !important;
     text-shadow: none !important;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    tab-size: 2;
 }
 
-/* popraw kontrast kolorów tokenów */
-.token.string  { color: #98fb98; }   /* jasnozielony */
-.token.number  { color: #f0ad4e; }   /* pomarańczowy */
-.token.boolean { color: #5bc0de; }   /* niebieski */
-.token.tag     { color: #f08080; }   /* różowy */
-.token.attr-name { color: #f8c471; }
-.token.attr-value { color: #98fb98; }
-.token.punctuation { color: #aaa; }
-/* Dla lepszej kompatybilności z różnymi przeglądarkami */
-/*textarea::placeholder,*/
-/*input::placeholder {*/
-/*    color: #ccc !important;*/
-/*    opacity: 0.5;*/
-/*}*/
+/* 🎨 Kolory tokenów Prism.js */
+.token.string       { color: #98fb98; }   /* jasnozielony */
+.token.number       { color: #f0ad4e; }   /* pomarańczowy */
+.token.boolean      { color: #5bc0de; }   /* niebieski */
+.token.tag          { color: #f08080; }   /* różowy */
+.token.attr-name    { color: #f8c471; }
+.token.attr-value   { color: #98fb98; }
+.token.punctuation  { color: #aaa; }
+
+/* 🧹 Usuń marginesy i padding z Prism.js (usuwa lewy "indent") */
+pre[class*="language-"] {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* 🧩 Pola wejściowe i wyjściowe (JSON/XML) */
 #input,
 #output {
     font-family: "JetBrains Mono", "Fira Code", monospace;
@@ -75,14 +87,24 @@ code[class*="language-"] {
     border: 1px solid #30363d !important;
     color: #e6edf3 !important;
     line-height: 1.4;
-    border-radius: 0.375rem; /* jak form-control */
-    padding: 10px 12px !important; /* takie samo jak textarea */
+    border-radius: 0.375rem;
+    padding: 0 !important; /* usuwa wewnętrzny padding z kontenera */
     margin: 0;
     resize: vertical;
     overflow: auto;
-    white-space: pre-wrap;
+    white-space: pre; /* zachowuje dokładne formatowanie JSON/XML */
 }
 
+/* ✨ Wnętrze kodu */
+#input code,
+#output code {
+    display: block;
+    padding: 10px 12px !important; /* taki sam padding jak textarea */
+    margin: 0 !important;
+    white-space: pre;
+}
+
+/* 🧭 Fokus */
 #input:focus,
 #output:focus {
     outline: none;
@@ -90,22 +112,15 @@ code[class*="language-"] {
     border-color: #58a6ff !important;
 }
 
-/* Usuń dziwne paddingi z <code> w środku */
-#input code,
-#output code {
-    display: block;
-    padding: 0 !important;
-    margin: 0 !important;
-    white-space: pre-wrap;
-}
-
-/* Usuń marginesy dodawane przez Prism.js */
-pre[class*="language-"] {
-    margin: 0 !important;
-    background: transparent !important;
-}
-
-/* Wskaźnik kursora w edytowalnym polu */
+/* 💡 Kursor w edytowalnym polu */
 #input[contenteditable="true"] {
     caret-color: #e6edf3;
+}
+
+/* 🖥️ Dopasowanie wysokości dla dużych ekranów */
+@media (min-width: 1200px) {
+    #input,
+    #output {
+        min-height: 700px;
+    }
 }
