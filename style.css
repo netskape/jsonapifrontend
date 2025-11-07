@@ -41,7 +41,11 @@ textarea.form-control:focus {
     color: #ccc !important; /* jaśniejszy szary */
     /*opacity: 100; !* pełna widoczność *!*/
 }
-
+@media (min-width: 1200px) {
+    textarea.form-control {
+        min-height: 700px; /* 🔹 Możesz zmienić np. na 100vh, jeśli chcesz pełny ekran */
+    }
+}
 /* Dla lepszej kompatybilności z różnymi przeglądarkami */
 /*textarea::placeholder,*/
 /*input::placeholder {*/
