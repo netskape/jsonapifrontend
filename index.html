@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konwerter JSON ↔ XML Online</title>
+    <meta name="description" content="Darmowy konwerter JSON ↔ XML online. Wklej dane i konwertuj jednym kliknięciem.">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
+
+<nav class="navbar navbar-dark bg-primary shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" href="#">🧩 JSON ↔ XML Converter</a>
+    </div>
+</nav>
+
+<main class="flex-fill py-4">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold">Konwerter JSON ↔ XML</h1>
+            <p class="text-secondary">Wklej dane i przekonwertuj jednym kliknięciem</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12 col-lg-6">
+                <label for="input" class="form-label">Dane wejściowe (JSON lub XML)</label>
+                <textarea id="input" class="form-control form-control-lg bg-body-tertiary text-light" rows="12" placeholder='Wklej tutaj JSON lub XML...'></textarea>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <label for="output" class="form-label">Wynik konwersji</label>
+                <textarea id="output" class="form-control form-control-lg bg-body-tertiary text-light" rows="12" placeholder='Tutaj pojawi się wynik...' readonly></textarea>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <div class="btn-group flex-wrap">
+                <button id="toXml" class="btn btn-success px-4">JSON ➜ XML</button>
+                <button id="toJson" class="btn btn-info px-4">XML ➜ JSON</button>
+                <button id="copy" class="btn btn-outline-light px-4">📋 Kopiuj</button>
+                <button id="download" class="btn btn-outline-warning px-4">⬇️ Pobierz</button>
+                <button id="clear" class="btn btn-outline-danger px-4">🧹 Wyczyść</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-secondary text-center text-dark py-2 mt-auto small">
+    © 2025 jsonxml.pl — Darmowe narzędzie do konwersji danych
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

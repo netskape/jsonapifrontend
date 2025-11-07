@@ -1,0 +1,39 @@
+body {
+    background-color: #0d1117 !important;
+    color: #e6edf3 !important;
+}
+
+/* Pola tekstowe */
+textarea.form-control {
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 0.85rem; /* 🔹 mniejsza czcionka */
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+    color: #e6edf3 !important;
+    resize: vertical;
+    line-height: 1.4;
+    padding: 10px 12px;
+}
+
+textarea.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(56, 139, 253, 0.25);
+    border-color: #58a6ff !important;
+}
+
+/* Przyciski */
+.btn {
+    border-radius: 8px !important;
+    font-size: 0.9rem;
+}
+
+/* Pasek nawigacji */
+.navbar-brand {
+    font-size: 1rem;
+}
+
+/* Drobne poprawki responsywne */
+@media (max-width: 768px) {
+    textarea.form-control {
+        font-size: 0.8rem;
+    }
+}
