@@ -37,3 +37,14 @@ textarea.form-control:focus {
         font-size: 0.8rem;
     }
 }
+::placeholder {
+    color: #ccc !important; /* jaśniejszy szary */
+    /*opacity: 100; !* pełna widoczność *!*/
+}
+
+/* Dla lepszej kompatybilności z różnymi przeglądarkami */
+/*textarea::placeholder,*/
+/*input::placeholder {*/
+/*    color: #ccc !important;*/
+/*    opacity: 0.5;*/
+/*}*/
