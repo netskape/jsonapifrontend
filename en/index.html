@@ -1,45 +1,126 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON ↔ XML Converter Online | Free Tool</title>
-  <meta name="description" content="Fast JSON to XML and XML to JSON converter. Works in the browser, no signup.">
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="alternate" href="../index.html" hreflang="pl" />
-  <link rel="alternate" href="index.html" hreflang="en" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JSON ↔ XML Converter Online – Free Tool for Developers</title>
+    <meta name="description" content="Free online JSON ↔ XML converter. Fast two-way conversion with no login or limits. Perfect tool for developers and data analysts.">
+    <meta name="keywords" content="json xml converter, json to xml, xml to json, online converter, developer tool, api, json formatter, xml parser, free online tool">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jsonxml.pl/en/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jsonxml.pl/en/">
+    <meta property="og:title" content="JSON ↔ XML Converter Online">
+    <meta property="og:description" content="Convert JSON to XML and XML to JSON online – instantly and for free. No login, no limits.">
+    <meta property="og:image" content="https://jsonxml.pl/preview.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JSON ↔ XML Converter Online">
+    <meta name="twitter:description" content="Fast JSON ↔ XML conversion online – free, no registration required.">
+    <meta name="twitter:image" content="https://jsonxml.pl/preview.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Prism (syntax highlighting) -->
+    <link rel="stylesheet" href="https://unpkg.com/prismjs/themes/prism-tomorrow.css">
+    <script src="https://unpkg.com/prismjs/prism.js" defer></script>
+    <script src="https://unpkg.com/prismjs/components/prism-json.min.js" defer></script>
+    <script src="https://unpkg.com/prismjs/components/prism-xml-doc.min.js" defer></script>
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d6efd">
+    <!--    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8182590482445594"-->
+    <!--            crossorigin="anonymous"></script>-->
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "JSON ↔ XML Converter Online",
+            "url": "https://jsonxml.pl/en/",
+            "description": "Free online JSON ↔ XML converter. Convert JSON to XML and XML to JSON instantly in your browser with full privacy.",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "All",
+            "creator": {
+                "@type": "Person",
+                "name": "Karol"
+            }
+        }
+    </script>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./../style.css">
 </head>
-<body>
-  <main class="container">
-    <header>
-      <h1>JSON ↔ XML Converter</h1>
-      <nav>
-        <a href="../index.html">PL</a>
-        <a href="index.html">EN</a>
-      </nav>
-    </header>
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
 
-    <section class="controls">
-      <textarea id="input" placeholder="Paste JSON or XML here..."></textarea>
-      <div class="buttons">
-        <button id="toXml">JSON ➜ XML</button>
-        <button id="toJson">XML ➜ JSON</button>
-        <button id="copy">Copy output</button>
-        <button id="download">Download</button>
-      </div>
-      <textarea id="output" placeholder="Output will appear here..." readonly></textarea>
-    </section>
+<nav class="navbar navbar-dark bg-primary shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" href="#">🧩 JSON ↔ XML Converter</a>
+    </div>
+</nav>
 
-    <section class="seo">
-      <h2>Convert JSON to XML and XML to JSON</h2>
-      <p>This free online tool converts JSON and XML quickly. Supports attributes and namespaces. Runs in your browser.</p>
-    </section>
+<main class="flex-fill py-4">
+    <div class="container-fluid">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold">JSON ↔ XML Converter Online</h1>
+            <p class="lead text-light">
+                Free online converter for JSON and XML data. Paste your content and convert instantly – no login, no limits.
+                All conversions happen locally in your browser for maximum privacy.
+            </p>
+            <p class="text-secondary">Paste your data and convert with one click</p>
+        </div>
 
-    <footer>
-      <p>© jsonxml – simple tool for devs.</p>
-    </footer>
-  </main>
-  <script src="../script.js"></script>
+        <div class="row g-4">
+            <div class="col-12 col-lg-6">
+                <label for="input" class="form-label">Input data (JSON or XML)</label>
+                <pre id="input" class="form-control form-control-lg bg-body-tertiary text-light p-3"
+                     contenteditable="true" style="height:400px; overflow:auto; white-space:pre-wrap;">
+                    <code id="inputCode" class="language-json"></code>
+                </pre>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <label for="output" class="form-label">Conversion result</label>
+                <pre id="output" class="form-control form-control-lg bg-body-tertiary text-light p-3"
+                     style="height:400px; overflow:auto;">
+                    <code id="outputCode" class="language-json"></code>
+                </pre>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <div class="btn-group flex-wrap">
+                <button id="format" class="btn btn-outline-secondary px-4 mx-2">✨ Format input</button>
+                <button id="toXml" class="btn btn-success px-4 mx-2">JSON ➜ XML</button>
+                <button id="toJson" class="btn btn-info px-4 mx-2">XML ➜ JSON</button>
+                <button id="copy" class="btn btn-outline-light px-4 mx-2">📋 Copy</button>
+                <button id="download" class="btn btn-outline-warning px-4 mx-2">⬇️ Download</button>
+                <button id="clear" class="btn btn-outline-danger px-4 mx-2">🧹 Clear</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-secondary text-center text-dark py-3 mt-auto small">
+    © 2025 jsonxml.pl — Free data conversion tool |
+    <a href="privacy-policy.html" class="text-dark text-decoration-underline">Privacy Policy</a> |
+    <a href="contact.html" class="text-dark text-decoration-underline">Contact</a> |
+    <a href="/" class="text-dark text-decoration-underline">Polish version 🇵🇱</a>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>
