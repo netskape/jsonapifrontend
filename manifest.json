@@ -1,0 +1,21 @@
+{
+  "name": "Konwerter JSON ↔ XML Online",
+  "short_name": "jsonxml.pl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d6efd",
+  "theme_color": "#0d6efd",
+  "description": "Bezpłatny konwerter JSON ↔ XML online. Szybka konwersja bez logowania i bez limitów.",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
